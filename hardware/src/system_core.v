@@ -88,8 +88,9 @@ module system
    wire [`RESP_W-1:0]        cpu_d_resp;
    
    //instantiate the cpu
-   iob_picorv32 cpu
-       (
+   //iob_picorv32 cpu
+   iob_ssrv cpu
+   (
         .clk     (clk),
         .rst     (cpu_reset),
         .boot    (boot),

@@ -16,8 +16,8 @@ FIRM_ADDR_W ?=14
 SRAM_ADDR_W ?=14
 
 #DDR 
-USE_DDR ?=1
-RUN_DDR ?=1
+USE_DDR ?=0
+RUN_DDR ?=0
 
 #CACHE DATA SIZE (LOG2)
 CACHE_ADDR_W:=24
@@ -63,7 +63,7 @@ FPGA_DDR_ADDR_W ?=30
 BOARD ?=AES-KU040-DB-G
 
 #Boards for which the FPGA compiler is installed in host
-#LOCAL_FPGA_LIST=CYCLONEV-GT-DK AES-KU040-DB-G
+LOCAL_FPGA_LIST=CYCLONEV-GT-DK AES-KU040-DB-G
 
 #boards installed host
 #LOCAL_BOARD_LIST=CYCLONEV-GT-DK
@@ -176,7 +176,7 @@ DEFINE+=$(defmacro)BAUD=$(BAUD)
 
 #operation frequency
 ifeq ($(FREQ),)
-DEFINE+=$(defmacro)FREQ=100000000
+DEFINE+=$(defmacro)FREQ=50000000
 else
 DEFINE+=$(defmacro)FREQ=$(FREQ)
 endif

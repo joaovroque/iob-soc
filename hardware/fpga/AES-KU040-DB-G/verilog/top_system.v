@@ -135,7 +135,7 @@ module top_system(
    wire                         ddr_aclk;
 `else 
    clock_wizard #(
-		  .OUTPUT_PER(10),
+		  .OUTPUT_PER(20),
 		  .INPUT_PER(4)
 		  )
    clk_250_to_100_MHz(
