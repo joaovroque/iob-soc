@@ -16,8 +16,8 @@ FIRM_ADDR_W ?=14
 SRAM_ADDR_W ?=14
 
 #DDR 
-USE_DDR ?=0
-RUN_DDR ?=0
+USE_DDR ?=1
+RUN_DDR ?=1
 
 #CACHE DATA SIZE (LOG2)
 CACHE_ADDR_W:=24
@@ -26,7 +26,7 @@ CACHE_ADDR_W:=24
 BOOTROM_ADDR_W:=12
 
 #PRE-INIT MEMORY WITH PROGRAM AND DATA
-INIT_MEM ?=1
+INIT_MEM ?=0
 
 #PERIPHERAL LIST
 #must match respective submodule or folder name in the submodules directory
@@ -60,7 +60,7 @@ SIM_LIST:=icarus ncsim
 FPGA_DDR_ADDR_W ?=30
 
 #default board
-BOARD ?=CYCLONEV-GT-DK
+BOARD ?=AES-KU040-DB-G
 
 #Boards for which the FPGA compiler is installed in host
 #LOCAL_FPGA_LIST=CYCLONEV-GT-DK AES-KU040-DB-G
