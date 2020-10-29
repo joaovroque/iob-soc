@@ -16,8 +16,8 @@ FIRM_ADDR_W ?=14
 SRAM_ADDR_W ?=14
 
 #DDR 
-USE_DDR ?=0
-RUN_DDR ?=0
+USE_DDR ?=1
+RUN_DDR ?=1
 
 #CACHE DATA SIZE (LOG2)
 CACHE_ADDR_W:=24
@@ -26,7 +26,7 @@ CACHE_ADDR_W:=24
 BOOTROM_ADDR_W:=12
 
 #PRE-INIT MEMORY WITH PROGRAM AND DATA
-INIT_MEM ?=1
+INIT_MEM ?=0
 
 #PERIPHERAL LIST
 #must match respective submodule or folder name in the submodules directory
@@ -60,10 +60,10 @@ SIM_LIST:=icarus ncsim
 FPGA_DDR_ADDR_W ?=30
 
 #default board
-BOARD ?=CYCLONEV-GT-DK
+BOARD ?=AES-KU040-DB-G
 
 #Boards for which the FPGA compiler is installed in host
-#LOCAL_FPGA_LIST=CYCLONEV-GT-DK AES-KU040-DB-G
+LOCAL_FPGA_LIST=CYCLONEV-GT-DK AES-KU040-DB-G
 
 #boards installed host
 #LOCAL_BOARD_LIST=CYCLONEV-GT-DK
@@ -169,14 +169,14 @@ DEFINE+=$(defmacro)P=$P
 DEFINE+=$(defmacro)B=$B
 
 #baud rate
-SIM_BAUD:=10000000
+SIM_BAUD:=5000000
 HW_BAUD:=115200
 BAUD ?= $(HW_BAUD)
 DEFINE+=$(defmacro)BAUD=$(BAUD)
 
 #operation frequency
 ifeq ($(FREQ),)
-DEFINE+=$(defmacro)FREQ=100000000
+DEFINE+=$(defmacro)FREQ=40000000
 else
 DEFINE+=$(defmacro)FREQ=$(FREQ)
 endif

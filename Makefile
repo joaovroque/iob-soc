@@ -103,7 +103,7 @@ ifneq ($(TEST_LOG),)
 endif
 endif
 
-board_clean: system.mk
+board-clean: system.mk
 ifeq ($(BOARD),$(filter $(BOARD), $(LOCAL_BOARD_LIST)))
 	make -C $(BOARD_DIR) clean
 else

@@ -65,7 +65,7 @@
 `timescale 1ps/1ps
 
 module clock_wizard #(
-		      parameter OUTPUT_PER = 10,
+		      parameter OUTPUT_PER = 25,
 		      parameter INPUT_PER = 4
 		      ) 
 
