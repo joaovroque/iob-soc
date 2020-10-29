@@ -1,0 +1,32 @@
+TOOLCHAIN_PREFIX := riscv32-unknown-elf-
+
+PYTHON_DIR := ../python
+SUBMODULES_DIR := ../../submodules
+UART_DIR := $(SUBMODULES_DIR)/iob-uart/c-driver
+CACHE_DIR := $(SUBMODULES_DIR)/iob-cache/c-driver
+INCLUDE = -I. -I$(UART_DIR) -I$(CACHE_DIR)
+
+NUMBER_OF_RUNS = 1000
+
+DEFINE = -DUART_BAUD_RATE=$(BAUD) -DUART_CLK_FREQ=$(FREQ) -DRISCV -DTIME -DNUMBER_OF_RUNS=$(NUMBER_OF_RUNS)
+
+SRC = dhry_1.c dhry_2.c stdlib.c syscalls.c $(UART_DIR)/iob-uart.c $(CACHE_DIR)/iob-cache.c firmware.S
+
+all: dhry.lds $(SRC) system.h $(UART_DIR)/iob-uart.h $(CACHE_DIR)/iob-cache.h
+	$(TOOLCHAIN_PREFIX)gcc -Os -O3 -ffreestanding -nostdlib -march=rv32im -mabi=ilp32 -Wno-implicit-int -Wno-implicit-function-declaration -o firmware.elf $(DEFINE) $(INCLUDE) $(SRC) --std=gnu99 -Wl,-Bstatic,-T,dhry.lds,-Map,firmware.map,--strip-debug -lgcc -lc
+	$(TOOLCHAIN_PREFIX)objcopy -O binary firmware.elf firmware.bin
+	$(eval MEM_SIZE=`../bash/get_binsize.sh firmware.bin`)
+	$(PYTHON_DIR)/makehex.py firmware.bin $(MEM_SIZE) > progmem.hex
+	$(eval MEM_SIZE=`$(PYTHON_DIR)/get_memsize.py MAINRAM_ADDR_W`)
+	$(PYTHON_DIR)/makehex.py firmware.bin $(MEM_SIZE) > firmware.hex
+
+system.h: ../../rtl/include/system.vh
+	sed s/\`/\#/g ../../rtl/include/system.vh > system.h
+
+
+clean:
+	@rm -rf firmware.bin firmware.elf firmware.map *.hex *.dat
+	@rm -rf uart_loader system.h
+	@rm -rf ../uart_loader
+
+.PHONY: all clean
