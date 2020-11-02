@@ -32,7 +32,7 @@ ifeq ($(VCD),1)
 endif
 endif
 
-sim-waves: $(SIM_DIR)/../waves.gtkw $(SIM_DIR)/system.vcd
+sim-waves: $(SIM_DIR)/../waves_cache_only.gtkw $(SIM_DIR)/system.vcd
 	gtkwave -a $^ &
 
 $(SIM_DIR)/../waves.gtkw $(SIM_DIR)/system.vcd:
